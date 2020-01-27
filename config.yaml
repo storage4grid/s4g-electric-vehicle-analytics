@@ -1,0 +1,50 @@
+
+http rest apis:
+  #dsf_password: !secret http_password
+  dsf_connectors:
+    loads:
+       http://10.8.0.50:18081/EDYNA/commercial/aggregatedloads
+
+    prices:
+       http://10.8.0.50:18081/EDYNA/commercial/prices
+
+    client:
+      entity:
+       GEVChCon
+      IP:
+        127.0.0.1
+
+physical_system:
+  grid:
+     max_power = 50
+
+calculation:
+  optimal operatin area:
+    optimization:
+      method: sa #stands for simulated anealing, also can get qp for quadratic non-linear problem
+      plot results: false
+    sa:
+      lowerBoundPower: -1000
+      higherBoundPower: 1000
+      globalTemperture: 1000
+      anealingTemperature: 101
+      epochs: 10
+      local search iterations: 100
+      alpha: 0
+      beta: 1
+      V2G: true
+  problem:
+    time: 24 # steps
+    granularity: 1
+    kWh: 200
+    deltaEmax: 0.5
+  optimization:
+    gacp:
+      number of solutions: 100
+      plot results: false
+    assets:
+      battery:
+        method:
+          gacp
+        number:
+          1
